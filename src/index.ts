@@ -4,27 +4,55 @@ import { resizePixelArray } from "./resizePixelArray";
 import { Colord, colord, extend } from "colord";
 import a11y from "colord/plugins/a11y";
 
+extend([a11y]);
+
+/**
+ * Represents an RGB pixel with three color channels: red, green, and blue.
+ */
 export type RgbPixel = [number, number, number];
 export type Palette = Colord[];
 
-extend([a11y]);
-
 type FromPixelsOptions = {
+    /** The size of generated palette. */
     colorCount: number;
+    /**
+     * The algorithm to use for obtaining the palette: "kmeans" or "quantize".
+     *
+     * "kmeans" uses k-means clustering, while "quantize" uses median cut color quantization.
+     *
+     * "quantize" is faster, but "kmeans" is more accurate.
+     */
     strategy: "kmeans" | "quantize";
+    /**
+     * Specifies the percentage of image to use for generating the palette.
+     *
+     * @default 0.5
+     */
     pixelRatio?: number;
 };
 
 type FromImageOptions = FromPixelsOptions & {
-    // [x, y, width, height]
-    coordinates?: [number, number, number, number];
+    /**
+     * Represents the area of image that's used for generating the palette.
+     * Specifies whole image by default.
+     *
+     * [x, y, width, height]
+     */
+    imageRegion?: [number, number, number, number];
 };
 
+/**
+ * Generates a palette from an image.
+ *
+ * @param image The image to generate the palette from.
+ * @param options The options for generating the palette.
+ * @returns Array of Colord instances representing the palette on success. Null on failure.
+ */
 export function paletteFromImage(image: HTMLImageElement, options: FromImageOptions) {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
-    const [x, y, width, height] = options.coordinates ?? [
+    const [x, y, width, height] = options.imageRegion ?? [
         0,
         0,
         image.naturalWidth,
@@ -42,6 +70,12 @@ export function paletteFromImage(image: HTMLImageElement, options: FromImageOpti
     return paletteFromPixels(pixels, options);
 }
 
+/**
+ * Generates a palette from an array of pixels.
+ * @param pixels The pixels to generate the palette from.
+ * @param options The options for generating the palette.
+ * @returns Array of Colord instances representing the palette on success. Null on failure.
+ */
 export function paletteFromPixels(
     pixels: RgbPixel[],
     options: FromPixelsOptions,
@@ -63,11 +97,11 @@ export function paletteFromPixels(
             .map(([r, g, b]) => colord({ r, g, b }))
             .sort(orderBySaturationPlusValue);
     } else {
-        const qResult = quantize(resizedPixels, options.colorCount);
+        // For some reason, quantize returns a palette with less colors than requested
+        // To fix this, we ask for colorCount + 1
+        const qResult = quantize(resizedPixels, options.colorCount + 1);
+        if (!qResult) return null;
         const palette = qResult.palette();
-
-        console.log("qResult", qResult);
-        console.log("qResult.size", qResult.size());
 
         return palette
             ? palette
