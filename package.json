@@ -15,7 +15,7 @@
     "repository": "github:matiand/palette-from-image",
     "license": "MIT",
     "scripts": {
-        "build": "tsup src/index.ts --dts --minify --format cjs,esm --outDir lib",
+        "build": "tsup src/index.ts --dts --minify --treeshake --format cjs,esm --outDir lib",
         "test": "vitest",
         "prepublishOnly": "npm run build"
     },
