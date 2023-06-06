@@ -2,14 +2,17 @@
     "name": "palette-from-image",
     "version": "0.1.0",
     "description": "A simple library to generate color palettes from images.",
-    "main": "dist/index.js",
-    "module": "./dist/index.mjs",
-    "types": "dist/@types/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "main": "lib/index.js",
+    "module": "./lib/index.mjs",
+    "types": "lib/@types/index.d.ts",
     "exports": {
         ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
+            "require": "./lib/index.js",
+            "import": "./lib/index.mjs",
+            "types": "./lib/index.d.ts"
         }
     },
     "repository": "github:matiand/palette-from-image",
