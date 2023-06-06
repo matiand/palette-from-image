@@ -1,4 +1,4 @@
-import { RgbPixel } from ".";
+import { RgbPixel } from "./paletteFromPixels";
 
 export function resizePixelArray(pixels: RgbPixel[], ratio = 1) {
     if (ratio >= 1 || ratio <= 0) return pixels;

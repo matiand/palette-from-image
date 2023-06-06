@@ -5,19 +5,25 @@
     "main": "index.js",
     "scripts": {
         "build": "esbuild src/index.ts --bundle --minify --sourcemap --target=es2015 --outfile=dist/index.js",
-        "test": "vitest"
+        "test": "vitest",
+        "types": "tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly"
     },
     "author": "",
     "license": "MIT",
     "devDependencies": {
         "@types/skmeans": "^0.11.4",
         "esbuild": "^0.17.19",
+        "jsdom": "^22.1.0",
         "typescript": "^5.0.4",
-        "vitest": "^0.31.1"
+        "vitest": "^0.31.1",
+        "vitest-canvas-mock": "^0.2.2"
     },
     "dependencies": {
         "colord": "^2.9.3",
         "quantize": "^1.0.2",
         "skmeans": "^0.11.3"
+    },
+    "overrides": {
+        "jest-canvas-mock": "2.5.0"
     }
 }

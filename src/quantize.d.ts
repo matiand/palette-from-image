@@ -1,15 +1,62 @@
+// Type definitions for quantize 1.0
+// Project: https://github.com/olivierlesnicki/quantize
+// Definitions by: matiand <https://github.com/matiand>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module "quantize" {
     type RgbPixel = [number, number, number];
 
-    type ColorMap = {
-        palette: () => RgbPixel[] | false;
+    interface PriorityQueue {
+        debug: () => ColorObject[];
+        map: <U>(callback: (item: ColorObject, index: number) => U) => U[];
+        peek: (index?: number) => ColorObject;
+        pop: () => ColorObject;
+        push: (item: ColorObject) => void;
         size: () => number;
+    }
+
+    interface VBox {
+        r1: number;
+        r2: number;
+        g1: number;
+        g2: number;
+        b1: number;
+        b2: number;
+        histo: number[];
+
+        avg: (recalculate?: boolean) => RgbPixel;
+        contains: (pixel: RgbPixel) => boolean;
+        copy: () => VBox;
+        count: () => number;
+        volume: (recalculate?: boolean) => number;
+    }
+
+    interface ColorObject {
+        color: RgbPixel;
+        vbox: VBox;
+    }
+
+    interface ColorMap {
+        vboxes: PriorityQueue;
+
+        /**
+         * Maps the pixel from source image to the closest palette color
+         */
         map: (pixel: RgbPixel) => RgbPixel;
-    };
+        nearest: (pixel: RgbPixel) => RgbPixel;
+        /**
+         * Returns the palette as an array of RgbPixel
+         * @returns RgbPixel[][]
+         */
+        palette: () => RgbPixel[];
+        push: (vbox: VBox) => void;
+        /**
+         * Returns the size of the palette
+         */
+        size: () => number;
+    }
 
-    type Quantize = (pixels: RgbPixel[], colorCount: number) => ColorMap;
+    declare function quantize(pixels: RgbPixel[], colorCount: number): ColorMap | false;
 
-    const quantize: Quantize;
-
-    export default quantize;
+    export = quantize;
 }
