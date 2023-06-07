@@ -46,5 +46,8 @@
     },
     "overrides": {
         "jest-canvas-mock": "2.5.0"
+    },
+    "engines": {
+        "node": ">=16"
     }
 }
