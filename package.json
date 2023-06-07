@@ -27,7 +27,8 @@
     "license": "MIT",
     "scripts": {
         "build": "tsup src/index.ts --dts --minify --treeshake --format cjs,esm --outDir lib",
-        "test": "vitest",
+        "test": "vitest run",
+        "test:watch": "vitest",
         "prepublishOnly": "npm run build"
     },
     "devDependencies": {
