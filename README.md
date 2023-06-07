@@ -1,6 +1,6 @@
 # palette-from-image
 
-palette-from-image is a TypeScript library that provides a simple way to generate color palettes from images.
+`palette-from-image` is a TypeScript library that provides a simple way to generate color palettes from images.
 
 ## Installation
 
@@ -162,4 +162,4 @@ const palette = paletteFromImage(image, {
 
 ## License
 
-palette-from-image is released under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+`palette-from-image` is released under the MIT License. See the [LICENSE](./LICENSE) file for more details.
