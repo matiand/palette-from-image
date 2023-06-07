@@ -44,20 +44,20 @@ if (palette) {
 import { paletteFromImage } from "palette-from-image";
 
 const Component() {
-	const imageRef = useRef<HTMLImageElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
-	const onImageLoad = () => {
-		const palette = paletteFromImage(imageRef.current, {
-			colorCount: 8,
-			strategy: "kmeans",
-			pixelRatio: 0.008,
-		});
+    const onImageLoad = () => {
+        const palette = paletteFromImage(imageRef.current, {
+            colorCount: 8,
+            strategy: "kmeans",
+            pixelRatio: 0.008,
+        });
 
-		// Do something with the palette colors
-		const paletteInHsl = palette?.colors.map((color) => color.toHslString());
-	}
+        // Do something with the palette colors
+        const paletteInHsl = palette?.colors.map((color) => color.toHslString());
+    }
 
-	return <img ref={imageRef} onLoad={onImageLoad} src="..."/>
+    return <img ref={imageRef} onLoad={onImageLoad} src="..."/>
 }
 
 ```
