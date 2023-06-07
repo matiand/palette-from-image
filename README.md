@@ -10,12 +10,6 @@ To use `palette-from-image` in your project, you can install it via npm:
 npm i palette-from-image
 ```
 
-or use a CDN:
-
-```
-todo:
-```
-
 ## Usage
 
 ### Generating a Palette from an image (Vanilla)
