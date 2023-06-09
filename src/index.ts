@@ -4,4 +4,5 @@ export {
     type FromPixelsOptions,
     type RgbPixel,
     type PaletteResult,
+    type PaletteColor,
 } from "./paletteFromPixels";

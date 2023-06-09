@@ -7,9 +7,10 @@ import { Colord, colord } from "colord";
  * Represents an RGB pixel with three color channels: red, green, and blue.
  */
 export type RgbPixel = [number, number, number];
+export type PaletteColor = Colord;
 export type PaletteResult = {
     /** The colors of the palette */
-    colors: Colord[];
+    colors: PaletteColor[];
     /** The pixels used in generating the palette. */
     usedPixels: RgbPixel[];
 };
