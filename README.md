@@ -83,7 +83,7 @@ const palette = paletteFromPixels(pixels, options);
 const dominantColor = palette?.colors
     // Drop colors that are too dark or too "boring"
     .filter((color) => {
-        const [h, s, v] = color.toHsv();
+        const { s, v } = color.toHsv();
 
         // You should experiment with these values
         return s > 0.2 && v > 0.2;
